@@ -73,7 +73,7 @@ function plot() {
     const radius = Math.max(width, height) / 2;
 
     // set dimensions
-    svg.attr('viewBox', `-${radius * 1.25} -${radius * 1.25} ${width * 1.25} ${(height + margin) * 1.25}`);
+    svg.attr('viewBox', `-${radius * 1.25} -${radius * 1.25} ${(width + margin) * 1.25} ${(height + margin) * 1.25}`);
 
     // create color scale
     const colorScale = d3.scaleOrdinal()

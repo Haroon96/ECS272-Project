@@ -175,7 +175,7 @@ function plot() {
 
     const strokeWidthScale = d3.scaleLinear()
         .domain([0, maxCount.value])
-        .range([0, 3]);
+        .range([0.01, 3]);
 
     // draw lines
     const lines: Corecommendation[] = corecommendations.value[props.ideology].filter(x => x.count > threshold.value);
