@@ -1,4 +1,6 @@
-# partisan-recommendations
+# YouTube Partisan Recommendations
+
+## [Live Demo](https://haroon96.github.io/ECS272-Project)
 
 This template should help get you started developing with Vue 3 in Vite.
 
