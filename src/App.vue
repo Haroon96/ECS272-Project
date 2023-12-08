@@ -60,6 +60,16 @@ watch(state, function (newVal, oldVal) {
             </p>
         </div>
 
+
+        <div class="state state-main active-state section flex flex-center flex-equal">
+            <div class="max-height">
+                <Other></Other>
+            </div>
+            <p>
+                Same channels yield different recommendations when trained differently.
+            </p>
+        </div>
+
     </div>
 </template>
 

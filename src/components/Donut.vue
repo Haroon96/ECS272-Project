@@ -69,7 +69,6 @@ function plot() {
     const margin = 4;
     const width = svg.node().clientWidth - margin;
     const height = svg.node().clientHeight - margin;
-    console.log(width, height);
     const radius = Math.max(width, height) / 2;
 
     // set dimensions
