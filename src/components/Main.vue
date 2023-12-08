@@ -5,6 +5,7 @@ import { dataStore } from '@/stores/data';
 import { storeToRefs } from 'pinia';
 import { onMounted, watch, ref, defineProps } from 'vue';
 import type { Channel } from '@/types/channel';
+import type { Corecommendation } from '@/types/corecommendation';
 
 
 const props = defineProps({
@@ -47,7 +48,7 @@ function plot() {
     function angleX(i, r) {
         return width / 2 + Math.cos(computeAngle(i)) * r;
     }
-    
+
     function angleY(i, r) {
         return height / 2 - Math.sin(computeAngle(i)) * r;
     }
@@ -91,7 +92,7 @@ function plot() {
         .style('opacity', 0.5)
         .style('cursor', 'pointer')
         .style('font-size', '0.75em')
-        .on('mousemove', function(e, d) {
+        .on('mousemove', function (e, d) {
             console.log(hoverChannel.value, d);
             hoverChannel.value = d;
 
@@ -108,7 +109,7 @@ function plot() {
         .on('click', function (e, d) {
             state_change(d);
         })
-        .on('mouseout', function(e, d) {
+        .on('mouseout', function (e, d) {
             const idx = e.target.getAttribute('index');
             svg.selectAll(`.channel-name:nth-child(${idx})`).style('opacity', 0.5);
             svg.selectAll(`.channel-circle:nth-child(${idx})`).style('opacity', 0.5);
@@ -131,7 +132,7 @@ function plot() {
         .style('opacity', 0.5)
         .style('cursor', 'pointer')
         .attr('index', (d, i) => i + 1)
-        .on('mousemove', function(e, d) {
+        .on('mousemove', function (e, d) {
             hoverChannel.value = d;
 
             const idx = e.target.getAttribute('index');
@@ -147,7 +148,7 @@ function plot() {
         .on('click', function (e, d) {
             state_change(d);
         })
-        .on('mouseout', function(e, d) {
+        .on('mouseout', function (e, d) {
             const idx = e.target.getAttribute('index');
             svg.selectAll(`.channel-name:nth-child(${idx})`).style('opacity', 0.5);
             svg.selectAll(`.channel-circle:nth-child(${idx})`).style('opacity', 0.5);
@@ -177,9 +178,10 @@ function plot() {
         .range([0, 3]);
 
     // draw lines
+    const lines: Corecommendation[] = corecommendations.value[props.ideology].filter(x => x.count > threshold.value);
     svg.append('g')
         .selectAll('line')
-        .data(corecommendations.value[props.ideology])
+        .data(lines)
         .enter()
         .append('line')
         .attr('class', d => `${d.channel1} ${d.channel2} channel-line`)
@@ -206,12 +208,13 @@ watch([channels, circleScale, threshold], plot);
     <svg :id="mainId" class="main"></svg>
     <div :id="hoverId" class="hover">
         <div>
-            <img id="channel_thumbnail" :src="hoverChannel?.thumbnail ? 'public/channels/' + hoverChannel.thumbnail + '.png' : ''">
+            <img id="channel_thumbnail"
+                :src="hoverChannel?.thumbnail ? 'public/channels/' + hoverChannel.thumbnail + '.png' : ''">
         </div>
         <div>
             <strong>{{ hoverChannel?.name }}</strong><br>
             Bias: {{ hoverChannel?.bias.toFixed(2) }}<br>
-            Subscribers: {{ hoverChannel?.subscriberCount.toLocaleString() }}            
+            Subscribers: {{ hoverChannel?.subscriberCount.toLocaleString() }}
         </div>
     </div>
     <div class="controls">
@@ -222,6 +225,11 @@ watch([channels, circleScale, threshold], plot);
                 <option value="normalized">Normalized</option>
                 <option value="fixed">Fixed</option>
             </select>
+        </div>
+        <div>
+            <span>Threshold:</span>
+            <input type="range" v-model="threshold" min="100" :max="maxCount">
+            <span>{{ threshold }}</span>
         </div>
     </div>
 </template>
@@ -256,5 +264,4 @@ div.controls {
     align-items: center;
     justify-content: center;
 }
-
 </style>
