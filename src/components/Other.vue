@@ -20,6 +20,9 @@ function plot() {
         return;
     }
 
+    // clear existing
+    svg.selectAll('*').remove();
+
     // get svg dimensions and margins
     const margin = 24;
     const width = svg.node().clientWidth;

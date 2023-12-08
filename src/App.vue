@@ -11,7 +11,7 @@ store.loadData();
 
 const { state } = storeToRefs(store);
 
-watch(state, function(newVal, oldVal) {
+watch(state, function (newVal, oldVal) {
     // get state elements
     const newElem = document.getElementsByClassName(`state-${newVal}`)[0];
     const oldElem = document.getElementsByClassName(`state-${oldVal}`)[0];
@@ -26,29 +26,64 @@ watch(state, function(newVal, oldVal) {
     }, 1000);
 });
 
-
 </script>
 
 <template>
-    <div class="state state-main active-state">
-        <Main></Main>
-    </div>
-    <div class="state state-other">
-        <Other></Other>
+    <div class="section-container">
+
+        <div class="intro section flex flex-center">
+            <div class="bg"></div>
+            <h1>YouTube Recommendations can be polarizing!</h1>
+        </div>
+
+        <div class="state state-main active-state section flex flex-center flex-equal">
+            <div>
+                <Main ideology="Left"></Main>
+            </div>
+            <p>Liberal users are often recommended videos related to their ideology.</p>
+        </div>
+
+        <div class="state state-main active-state section flex flex-center flex-equal">
+            <p>Liberal users are often recommended videos related to their ideology.</p>
+            <div>
+                <Main ideology="Right"></Main>
+            </div>
+        </div>
+<!-- 
+        <div class="state state-main active-state section">
+            <Main></Main>
+        </div> -->
+
     </div>
 </template>
 
 <style scoped>
-
-
 @keyframes fadeOut {
-    from {opacity: 1; transform: scale(1); visibility: visible;}
-    to {opacity: 0; transform: scale(2); visibility: hidden;}
+    from {
+        opacity: 1;
+        transform: scale(1);
+        visibility: visible;
+    }
+
+    to {
+        opacity: 0;
+        transform: scale(2);
+        visibility: hidden;
+    }
 }
 
 @keyframes fadeIn {
-    from {opacity: 0; transform: scale(2); visibility: hidden;}
-    to {opacity: 1; transform: scale(1); visibility: visible;}
+    from {
+        opacity: 0;
+        transform: scale(2);
+        visibility: hidden;
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+        visibility: visible;
+    }
 }
 
 .state:not(.active-state) {
@@ -64,13 +99,59 @@ watch(state, function(newVal, oldVal) {
     animation: fadeIn 1s;
 }
 
-.state {
+.section {
+    width: 100%;
+    height: 100vh;
+    background: white;
+    scroll-snap-align: start;
+    position: relative;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-center {
+    align-items: center;
+    justify-content: center;
+}
+
+.flex-equal * {
+    width: 50%;
+}
+
+.section.intro {
+    z-index: 100;
+    position: relative;
+}
+
+.section>h1 {
+    font-size: 4em;
+    text-align: center;
+    margin: 0;
+}
+
+.section  > p {
+    font-size: 2em;
+    text-align: center;
+    padding: 8px;
+}
+
+.section.intro .bg {
+    height: 100vh;
+    width: 100%;
+    background: url(/public/intro-bg.jpg);
+    background-size: cover;
+    opacity: 0.1;
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100vh;
-}
 
+}
+.section-container {
+    height: 100vh;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+}
 
 </style>

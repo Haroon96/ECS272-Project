@@ -4,5 +4,6 @@ export type Channel = {
     bias: number,
     viewCount: number,
     videoCount: number,
-    subscriberCount: number
+    subscriberCount: number,
+    thumbnail: string
 };
