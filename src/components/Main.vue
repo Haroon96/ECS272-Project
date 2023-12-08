@@ -5,7 +5,6 @@ import { dataStore } from '@/stores/data';
 import { storeToRefs } from 'pinia';
 import { onMounted, watch, ref, defineProps } from 'vue';
 import type { Channel } from '@/types/channel';
-import type { Corecommendation } from '@/types/corecommendation';
 
 
 const props = defineProps({
@@ -160,9 +159,6 @@ function plot() {
     const getChannel = (i: string) => channels.value.filter(x => x.id == i)[0];
     const channelIndex = (i: string) => channels.value.map(x => x.id).indexOf(i);
 
-    // find lines above threshold
-    const lines: Corecommendation[] = corecommendations.value[props.ideology].filter(x => x.count > threshold.value);
-
     const getColor = (c1: string, c2: string) => {
         let bias1 = getChannel(c1).bias;
         let bias2 = getChannel(c2).bias;
@@ -175,10 +171,15 @@ function plot() {
         return 'purple';
     };
 
+
+    const strokeWidthScale = d3.scaleLinear()
+        .domain([0, maxCount.value])
+        .range([0, 3]);
+
     // draw lines
     svg.append('g')
         .selectAll('line')
-        .data(lines)
+        .data(corecommendations.value[props.ideology])
         .enter()
         .append('line')
         .attr('class', d => `${d.channel1} ${d.channel2} channel-line`)
@@ -186,7 +187,7 @@ function plot() {
         .attr('y1', (d, i) => angleY(channelIndex(d.channel1), radius * 0.85))
         .attr('x2', (d, i) => angleX(channelIndex(d.channel2), radius * 0.85))
         .attr('y2', (d, i) => angleY(channelIndex(d.channel2), radius * 0.85))
-        .attr('stroke-width', (d, i) => d.count / maxCount.value * 3)
+        .attr('stroke-width', (d, i) => strokeWidthScale(d.count))
         .attr('stroke', (d, i) => getColor(d.channel1, d.channel2));
 }
 
@@ -222,11 +223,6 @@ watch([channels, circleScale, threshold], plot);
                 <option value="fixed">Fixed</option>
             </select>
         </div>
-        <div>
-            <span>Threshold:</span>
-            <input type="range" v-model="threshold" min="100" :max="maxCount">
-            <span>{{ threshold }}</span>
-        </div>
     </div>
 </template>
 
@@ -258,6 +254,7 @@ div.controls {
     display: flex;
     padding: 2vh 24px 2vh 24px;
     align-items: center;
+    justify-content: center;
 }
 
 </style>

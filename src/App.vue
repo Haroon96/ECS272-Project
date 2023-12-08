@@ -5,6 +5,7 @@ import { dataStore } from '@/stores/data';
 import { storeToRefs } from 'pinia';
 import { watch } from 'vue';
 import Other from '@/components/Other.vue';
+import Donut from './components/Donut.vue';
 
 const store = dataStore();
 store.loadData();
@@ -40,19 +41,25 @@ watch(state, function (newVal, oldVal) {
             <div>
                 <Main ideology="Left"></Main>
             </div>
-            <p>Liberal users are often recommended videos related to their ideology.</p>
+            <p>Liberal users are often recommended videos within their ideology.</p>
         </div>
 
         <div class="state state-main active-state section flex flex-center flex-equal">
-            <p>Conservative users are also recommended videos more congenial with their ideology.</p>
+            <p>While conservative users are also recommended videos within their ideology, cross-cutting recommendations are also prevalent indicated by the purples.</p>
             <div>
                 <Main ideology="Right"></Main>
             </div>
         </div>
-<!-- 
-        <div class="state state-main active-state section">
-            <Main></Main>
-        </div> -->
+
+        <div class="state state-main active-state section flex flex-center flex-equal">
+            <div class="max-height">
+                <Donut></Donut>
+            </div>
+            <div>
+                asd
+                <!-- <Other></Other> -->
+            </div>
+        </div>
 
     </div>
 </template>
@@ -116,7 +123,7 @@ watch(state, function (newVal, oldVal) {
     justify-content: center;
 }
 
-.flex-equal * {
+.flex-equal > * {
     width: 50%;
 }
 
@@ -153,5 +160,7 @@ watch(state, function (newVal, oldVal) {
     overflow-y: scroll;
     scroll-snap-type: y mandatory;
 }
-
+.max-height {
+    height: 100vh;
+}
 </style>

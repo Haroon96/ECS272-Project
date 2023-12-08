@@ -42,9 +42,6 @@ function plot() {
         .attr('width', 20)
         .attr('height', 20)
         .attr('fill', (d, i) => i < 50 ? 'blue' : 'red');
-
-    svg.append('text').text(`0,0`).attr('x', 0).attr('y', 0);//.
-    svg.append('text').text(`${width},${height}`).attr('x', width).attr('y', height).attr('text-anchor', 'end');
 }
 
 
