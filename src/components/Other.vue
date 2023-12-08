@@ -72,16 +72,28 @@ function plot() {
         .attr('height', 20)
         .attr('fill', (d, i) => i < split2 ? 'blue' : 'red');
 
-    svg.append('text')
+        svg.append('text')
         .attr('x', 22 * 5)
         .attr('y', 200 + 22 * 11)
         .text('Left')
         .attr('text-anchor', 'middle');
    
-        svg.append('text')
+    svg.append('text')
         .attr('x', width - 22 * 4)
         .attr('y', 200 + 22 * 11)
         .text('Right')
+        .attr('text-anchor', 'middle');
+
+    svg.append('text')
+        .attr('x', 22 * 5)
+        .attr('y', 220 + 22 * 11)
+        .text(`${split1.toFixed(0)}% - ${(100 - split1).toFixed(0)}%`)
+        .attr('text-anchor', 'middle');
+   
+    svg.append('text')
+        .attr('x', width - 22 * 4)
+        .attr('y', 220 + 22 * 11)
+        .text(`${split2.toFixed(0)}% - ${(100 - split2).toFixed(0)}%`)
         .attr('text-anchor', 'middle');
 }
 

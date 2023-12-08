@@ -145,7 +145,7 @@ function plot() {
             d3.selectAll(`.channel-line:not(.${d.id})`).attr('opacity', 0);
         })
         .on('click', function (e, d) {
-            state_change(d);
+            //
         })
         .on('mouseout', function (e, d) {
             const idx = e.target.getAttribute('index');
