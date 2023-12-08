@@ -69,11 +69,10 @@ function plot() {
     const margin = 4;
     const width = svg.node().clientWidth - margin;
     const height = svg.node().clientHeight - margin;
-    console.log(width, height);
     const radius = Math.max(width, height) / 2;
 
     // set dimensions
-    svg.attr('viewBox', `-${radius * 1.25} -${radius * 1.25} ${(width + margin) * 1.25} ${(height + margin) * 1.25}`);
+    svg.attr('viewBox', `-${radius * 1.25} -${radius * 1.25} ${(width + margin) * 1.5} ${(height + margin) * 1.25}`);
 
     // create color scale
     const colorScale = d3.scaleOrdinal()

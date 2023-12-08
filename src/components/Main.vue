@@ -93,7 +93,6 @@ function plot() {
         .style('cursor', 'pointer')
         .style('font-size', '0.75em')
         .on('mousemove', function (e, d) {
-            console.log(hoverChannel.value, d);
             hoverChannel.value = d;
 
             const idx = e.target.getAttribute('index');
