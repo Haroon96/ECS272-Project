@@ -56,7 +56,6 @@ function plot() {
     const data = preprocess();
 
     if (data == null) {
-        setTimeout(plot, 100);
         return;
     }
 

@@ -55,10 +55,9 @@ watch(state, function (newVal, oldVal) {
             <div class="max-height">
                 <Donut></Donut>
             </div>
-            <div>
-                asd
-                <!-- <Other></Other> -->
-            </div>
+            <p>
+                Self-recommendations appear to be very few. Here orange is the other and blue is self-recommendations.
+            </p>
         </div>
 
     </div>
