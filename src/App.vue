@@ -44,7 +44,7 @@ watch(state, function (newVal, oldVal) {
         </div>
 
         <div class="state state-main active-state section flex flex-center flex-equal">
-            <p>Liberal users are often recommended videos related to their ideology.</p>
+            <p>Conservative users are also recommended videos more congenial with their ideology.</p>
             <div>
                 <Main ideology="Right"></Main>
             </div>

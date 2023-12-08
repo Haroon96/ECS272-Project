@@ -5,6 +5,7 @@ import { dataStore } from '@/stores/data';
 import { storeToRefs } from 'pinia';
 import { onMounted, watch, ref, defineProps } from 'vue';
 import type { Channel } from '@/types/channel';
+import type { Corecommendation } from '@/types/corecommendation';
 
 
 const props = defineProps({
@@ -160,7 +161,7 @@ function plot() {
     const channelIndex = (i: string) => channels.value.map(x => x.id).indexOf(i);
 
     // find lines above threshold
-    const lines = corecommendations.value[props.ideology].filter(x => x.count > threshold.value);
+    const lines: Corecommendation[] = corecommendations.value[props.ideology].filter(x => x.count > threshold.value);
 
     const getColor = (c1: string, c2: string) => {
         let bias1 = getChannel(c1).bias;
@@ -185,6 +186,7 @@ function plot() {
         .attr('y1', (d, i) => angleY(channelIndex(d.channel1), radius * 0.85))
         .attr('x2', (d, i) => angleX(channelIndex(d.channel2), radius * 0.85))
         .attr('y2', (d, i) => angleY(channelIndex(d.channel2), radius * 0.85))
+        .attr('stroke-width', (d, i) => d.count / maxCount.value * 3)
         .attr('stroke', (d, i) => getColor(d.channel1, d.channel2));
 }
 
