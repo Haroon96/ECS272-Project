@@ -261,6 +261,6 @@ div.controls {
     display: flex;
     padding: 2vh 24px 2vh 24px;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
 }
 </style>
